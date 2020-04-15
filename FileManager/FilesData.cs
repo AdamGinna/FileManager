@@ -15,87 +15,94 @@ namespace FileManager
 
 
 
-        ulong _files;
-        ulong Files { get => _files; }
-        ulong _bytes;
-        ulong Bytes { get => _bytes; }
+        public ulong Files {
+            get;
+            private set; }
 
-        ulong _imageFiles;
-        ulong ImageFiles { get => _imageFiles; }
-        ulong _imageBytes;
-        ulong ImageBytes { get => _imageBytes; }
+        public ulong Bytes { get; private set; }
 
-        ulong _audioFiles;
-        ulong AudioFiles { get => _audioFiles; }
-        ulong _audioBytes;
-        ulong AudioBytes { get => _audioBytes; }
+        public ulong ImageFiles { get; private set; }
+        public ulong ImageBytes { get; private set; }
 
-        ulong _filmFiles;
-        ulong FilmFiles { get => _filmFiles; }
-        ulong _filmBytes;
-        ulong FilmBytes { get => _filmBytes; }
+        public ulong AudioFiles { get; private set; }
+        public ulong AudioBytes { get; private set; }
 
-        ulong _documentFiles;
-        ulong DocumentFiles { get => _documentFiles; }
-        ulong _documentBytes;
-        ulong DocumentBytes { get => _documentBytes; }
+        public ulong FilmFiles { get; private set; }
+        public ulong FilmBytes { get; private set; }
 
-        ulong _archFiles;
-        ulong ArchFiles { get => _archFiles; }
-        ulong _archBytes;
-        ulong ArchBytes { get => _archBytes; }
+        public ulong DocumentFiles { get; private set; }
+        public ulong DocumentBytes { get; private set; }
+
+        public ulong ArchFiles { get; private set; }
+        public ulong ArchBytes { get; private set; }
 
 
 
         public DirectoryInfo Dir
         {
-            get => Dir;
-            set
+            get;
+            set;
+        }
+
+        public void Start()
+        {
+            if (Dir.Exists)
             {
-                if (value.Exists)
-                {
-                    SaveData(value);
-                    // zerowanie danych 
-                    Dir = value;
-                }
-                else
-                    throw new DirectoryNotFoundException();
+                Files = 0;
+                Bytes = 0;
+                ImageFiles = 0;
+                ImageBytes = 0;
+                AudioFiles = 0;
+                AudioBytes = 0;
+                FilmFiles = 0;
+                FilmBytes = 0;
+                DocumentFiles = 0;
+                DocumentBytes = 0;
+                ArchFiles = 0;
+                ArchBytes = 0;
+
+                SaveData(Dir);
+                // zerowanie danych 
+            }
+            else
+            {
+                throw new DirectoryNotFoundException();
             }
         }
 
 
         private void SaveData(DirectoryInfo dir)
         {
-            var fileList = dir.GetFiles();
+            FileInfo[] fileList = dir.GetFiles();
             foreach (FileInfo file in fileList)
             {
-                _files++;
-                _bytes += (ulong)file.Length;
+                Files++;
+                Bytes += (ulong)file.Length;
                 string extension = file.Extension;
                 if (Array.Exists(ImageFormat, element => element == extension))
                 {
-                    _imageBytes += (ulong)file.Length;
-                    _imageFiles++;
+                    ImageBytes += (ulong)file.Length;
+                    ImageFiles++;
                 }
                 else if (Array.Exists(DocumentFormat, element => element == extension))
                 {
-                    _documentBytes += (ulong)file.Length;
-                    _documentFiles++;
+                    DocumentBytes += (ulong)file.Length;
+                    DocumentFiles++;
                 }
                 else if (Array.Exists(AudioFormat, element => element == extension))
                 {
-                    _audioBytes += (ulong)file.Length;
-                    _audioFiles++;
+                    AudioBytes += (ulong)file.Length;
+                    AudioFiles++;
                 }
                 else if (Array.Exists(ArchFormat, element => element == extension))
                 {
-                    _archBytes += (ulong)file.Length;
-                    _archFiles++;
+                    ArchBytes += (ulong)file.Length;
+                    ArchFiles++;
                 }
                 else if (Array.Exists(FilmFormat, element => element == extension))
                 {
-                    _filmBytes += (ulong)file.Length;
-                    _filmFiles++;
+                    FilmBytes += (ulong)file.Length;
+                    FilmFiles++;
                 }
             }
         }
@@ -103,18 +110,18 @@ namespace FileManager
 
         static public FilesData operator +(FilesData a, FilesData b)
         {
-            a._files += b._files;
-            a._bytes += b._bytes;
-            a._imageFiles += b._imageFiles;
-            a._imageBytes += b._imageBytes;
-            a._audioFiles += b._audioFiles;
-            a._audioBytes += b._audioBytes;
-            a._filmFiles += b._filmFiles;
-            a._filmBytes += b._filmBytes;
-            a._documentFiles += b._documentFiles;
-            a._documentBytes += b._documentBytes;
-            a._archFiles += b._archFiles;
-            a._archBytes += b._archBytes;
+            a.Files += b.Files;
+            a.Bytes += b.Bytes;
+            a.ImageFiles += b.ImageFiles;
+            a.ImageBytes += b.ImageBytes;
+            a.AudioFiles += b.AudioFiles;
+            a.AudioBytes += b.AudioBytes;
+            a.FilmFiles += b.FilmFiles;
+            a.FilmBytes += b.FilmBytes;
+            a.DocumentFiles += b.DocumentFiles;
+            a.DocumentBytes += b.DocumentBytes;
+            a.ArchFiles += b.ArchFiles;
+            a.ArchBytes += b.ArchBytes;
             return a;
         }
     }
