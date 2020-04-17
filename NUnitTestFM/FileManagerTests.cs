@@ -3,6 +3,8 @@ using FileManager;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace FileManager.Tests
 {
@@ -10,10 +12,15 @@ namespace FileManager.Tests
     public class FileManagerTests
     {
         [Test()]
-        public void FileManagerTest()
+        public async Task FileManagerTestAsync()
         {
-            
-            Assert.Fail();
+            FileManager man = new FileManager();
+            man.Path = @"c:\Users\Adam\source\repos\FileManager\NUnitTestFM\FolderTestowy";
+            FilesData data = await Task.Run(() => man.GetAllData());
+            Assert.AreEqual(18, data.Files);
+            Assert.AreEqual(6, data.ImageFiles);
+            Assert.AreEqual(2, data.AudioFiles);
+            Assert.AreEqual(17633248 * 2, data.ArchBytes);
         }
 
         [Test()]
@@ -25,19 +32,30 @@ namespace FileManager.Tests
         [Test()]
         public void GetFilesDataTest()
         {
-            Assert.Fail();
+            FilesData data = FileManager.GetFilesData(@"c:\Users\Adam\source\repos\FileManager\NUnitTestFM\FolderTestowy");
+            Assert.AreEqual(data.Files, 11);
+            Assert.AreEqual(data.AudioFiles, 1);
+            Assert.AreEqual(data.ImageFiles, 4);
+            Assert.AreEqual(data.DocumentFiles, 3);
+            Assert.AreEqual(data.ArchFiles, 1);
+            Assert.AreEqual(data.FilmFiles, 1);
         }
 
         [Test()]
-        public void GetAllDataTest()
+        public async Task GetAllDataTestAsync()
         {
-            Assert.Fail();
+            FileManager man = new FileManager();
+            FilesData data = await Task.Run(() => man.GetAllData());
+            Console.WriteLine(data.Files);
+
         }
 
         [Test()]
         public void GetDiskDataTest()
         {
-            Assert.Fail();
+            FileManager man = new FileManager(); 
+            man.GetDiskData();
+            Assert.IsNotNull(man.Drives);
         }
     }
 }

@@ -44,10 +44,8 @@ namespace FileManager
             set;
         }
 
-        public void Start()
+        public void Zero()
         {
-            if (Dir.Exists)
-            {
                 Files = 0;
                 Bytes = 0;
                 ImageFiles = 0;
@@ -60,7 +58,13 @@ namespace FileManager
                 DocumentBytes = 0;
                 ArchFiles = 0;
                 ArchBytes = 0;
+        }
 
+        public void Start()
+        {
+            if (Dir.Exists)
+            {
+                Zero();
                 SaveData(Dir);
                 // zerowanie danych 
             }
@@ -73,7 +77,14 @@ namespace FileManager
 
         private void SaveData(DirectoryInfo dir)
         {
-            FileInfo[] fileList = dir.GetFiles();
+            FileInfo[] fileList;
+            try
+            {
+                fileList = dir.GetFiles();
+            }catch
+            {
+                fileList = new FileInfo[0];
+            }
             foreach (FileInfo file in fileList)
             {
                 Files++;
