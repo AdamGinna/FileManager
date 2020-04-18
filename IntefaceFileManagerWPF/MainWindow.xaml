@@ -6,27 +6,29 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:IntefaceFileManagerWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" >
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2.5*" />
+            <ColumnDefinition Width="2.5*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <local:FilePieChart Grid.Column="1" Grid.Row="0" />
+        <local:FilePieChart Grid.Column="1" Grid.Row="0"  />
         <local:BytesPieChart Grid.Column="2" Grid.Row="0" />
-        <local:BytesColumnChart Grid.Column="2" Grid.Row="1" />
-        <StackPanel Grid.Column="0">
-            <Button Margin="6,6,6,6">Button 1</Button>
-            <Button Margin="6,6,6,6">Button 2</Button>
-            <Button Margin="6,6,6,6">Button 3</Button>
-            <Button Margin="6,6,6,6">Button 4</Button>
-            <Button Margin="6,6,6,6">Button 5</Button>
-            <Button Margin="6,6,6,6">Button 6</Button>
+        <local:BytesColumnChart Grid.Column="2" Grid.Row="1" Margin="0,25,0,0" Grid.RowSpan="2" />
+        <Grid Grid.Column="1" Grid.Row="1" Margin="5,0,0,0">
+            <local:DrivesColumnChart x:Name="DrivesColumnChart"  Visibility="Hidden"/>
+            <local:ChooseDrive x:Name="ChooseDrive" Visibility="Hidden"/>
+            <local:ChoosePath x:Name="ChoosePath"/>
+        </Grid>
+        <StackPanel Grid.Column="0" Grid.RowSpan="3" Background="WhiteSmoke">
+            <Button Margin="6,6,6,6" FontSize="18" Background="BlueViolet" Foreground="White" Click="All_Click">All</Button>
+            <Button Margin="6,6,6,6" FontSize="18" Background="BlueViolet" Foreground="White" Click="Drives_Click">Drives</Button>
+            <Button Margin="6,6,6,6" FontSize="18" Background="BlueViolet" Foreground="White" Click="Folder_Click">Folder</Button>
         </StackPanel>
     </Grid>
 </Window>
