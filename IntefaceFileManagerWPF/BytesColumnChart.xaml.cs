@@ -23,37 +23,83 @@ namespace IntefaceFileManagerWPF
         public BytesColumnChart()
         {
             InitializeComponent();
+
+            BrushConverter bc = new BrushConverter();
+
             SeriesCollection = new SeriesCollection {
 
-            new StackedColumnSeries
+            new ColumnSeries
                 {
-                    Values = new ChartValues<double> {4, 5, 6, 8},
-                    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
-                    DataLabels = true
+                    Title = "Image",
+                    Values = new ChartValues<double> {6},
                 },
-                new StackedColumnSeries
+                new ColumnSeries
                 {
-                    Values = new ChartValues<double> {2, 5, 6, 7},
-                    StackMode = StackMode.Values,
-                    DataLabels = true
+                    Title = "Film",
+                    Values = new ChartValues<double> {4},
+                },
+                new ColumnSeries
+                {
+                    Title = "Audio",
+                    Values = new ChartValues<double> {9},
+                },
+                new ColumnSeries
+                {
+                    Fill = (Brush)bc.ConvertFrom("DeepPink"),
+                    Title = "Document",
+                    Values = new ChartValues<double> {7},
+                },
+                new ColumnSeries
+                {
+                    Fill = (Brush)bc.ConvertFrom("LimeGreen"),
+                    Title = "Archive",
+                    Values = new ChartValues<double> {7},
+                },
+                new ColumnSeries
+                {
+                    Fill = (Brush)bc.ConvertFrom("SlateGray"),
+                    Title = "Rest",
+                    Values = new ChartValues<double> {7},
                 }
 
         };
-            //adding series updates and animates the chart
-            SeriesCollection.Add(new StackedColumnSeries
-            {
-                Values = new ChartValues<double> { 6, 2, 7 },
-                StackMode = StackMode.Values
-            });
-
-            //adding values also updates and animates
-            SeriesCollection[2].Values.Add(4d);
-
-            Labels = new[] { "Chrome", "Mozilla", "Opera", "IE" };
             Formatter = value => value + " Bytes";
 
+            
+            DataContext = this;
 
+        }
 
+        public void UpdateChart(FileManager.FilesData data)
+        {
+
+            foreach (ColumnSeries s in SeriesCollection)
+            {
+                if (s.Title == "Image")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.ImageBytes };
+                }
+                else if (s.Title == "Audio")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.AudioBytes };
+                }
+                else if (s.Title == "Film")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.FilmBytes };
+                }
+                else if (s.Title == "Document")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.DocumentBytes };
+                }
+                else if (s.Title == "Archive")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.ArchBytes };
+                }
+                else if (s.Title == "Rest")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.RestBytes };
+                }
+            }
         }
 
 

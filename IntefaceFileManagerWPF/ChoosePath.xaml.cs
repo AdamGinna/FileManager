@@ -11,7 +11,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WinForms = System.Windows.Forms;
-using FileManager; 
+using FileManager;
+using System.Threading.Tasks;
 
 namespace IntefaceFileManagerWPF
 {
@@ -20,6 +21,9 @@ namespace IntefaceFileManagerWPF
     /// </summary>
     public partial class ChoosePath : UserControl
     {
+        string path = @"c:/";
+
+        bool NewData = false;
 
         public ChoosePath()
         {
@@ -30,17 +34,45 @@ namespace IntefaceFileManagerWPF
         {
             var dialog = new WinForms.FolderBrowserDialog();
             WinForms.DialogResult result = dialog.ShowDialog();
-
+            
             if (result == WinForms.DialogResult.OK)
             {
-                MainWindow.managerFolder.Path = dialog.SelectedPath;
                 this.labelPath.Text = dialog.SelectedPath;
+                path = dialog.SelectedPath;
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async Task MakeFolderDataAsync(string path)
         {
+            FileManager.FileManager managerFolder = new FileManager.FileManager();
+            managerFolder.Path = path;
+            FileManager.FilesData data = await managerFolder.GetAllData(path);
+            MainWindow.DataFolder = data;
+            NewData = true;
+            //MainWindow.FolderCharts(data);
+        }
 
+            private void Check_Click(object sender, RoutedEventArgs e)
+        {
+            buttonCheck.IsEnabled = false;
+            Task.Run(() => MakeFolderDataAsync(path));
+            while (true)
+            {
+                if (NewData)
+                {
+                    UpdateChart();
+                    NewData = false;
+                    break;
+                }
+            }
+            buttonCheck.IsEnabled = true;
+
+        }
+
+        private void UpdateChart()
+        {
+            MainWindow main = (MainWindow)Window.GetWindow(this);
+            main.FolderCharts();
         }
     }
 }

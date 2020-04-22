@@ -8,16 +8,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <lvc:PieChart LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}" Margin="0,0,0,0" Grid.Column="1" >
+        <Label FontSize="20" Foreground="DarkViolet" Margin="20,0,0,0" FontWeight="DemiBold">Files</Label>
+        <lvc:PieChart x:Name="PieChart" LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}" Margin="0,0,0,0" >
+
             <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Maria" Values="3" DataLabels="True"
+                <lvc:PieSeries Title="Image" Values="3" DataLabels="True"
+                               LabelPoint="{Binding PointLabel}" />
+                <lvc:PieSeries Title="Film" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}" />
+                <lvc:PieSeries Title="Audio" Values="4" DataLabels="True" 
                                LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Document" Values="6" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}" Fill="DeepPink"/>
+                <lvc:PieSeries Title="Archive" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}" Fill="LimeGreen"/>
+                <lvc:PieSeries Title="Rest" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}" Fill="SlateGray"/>
             </lvc:PieChart.Series>
         </lvc:PieChart>
     </Grid>

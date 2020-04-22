@@ -37,6 +37,8 @@ namespace FileManager
         public ulong ArchBytes { get; private set; }
 
 
+        public ulong RestFiles { get; private set; }
+        public ulong RestBytes { get; private set; }
 
         public DirectoryInfo Dir
         {
@@ -46,18 +48,20 @@ namespace FileManager
 
         public void Zero()
         {
-                Files = 0;
-                Bytes = 0;
-                ImageFiles = 0;
-                ImageBytes = 0;
-                AudioFiles = 0;
-                AudioBytes = 0;
-                FilmFiles = 0;
-                FilmBytes = 0;
-                DocumentFiles = 0;
-                DocumentBytes = 0;
-                ArchFiles = 0;
-                ArchBytes = 0;
+            Files = 0;
+            Bytes = 0;
+            ImageFiles = 0;
+            ImageBytes = 0;
+            AudioFiles = 0;
+            AudioBytes = 0;
+            FilmFiles = 0;
+            FilmBytes = 0;
+            DocumentFiles = 0;
+            DocumentBytes = 0;
+            ArchFiles = 0;
+            ArchBytes = 0;
+            RestFiles = 0;
+            RestBytes = 0;
         }
 
         public void Start()
@@ -115,6 +119,11 @@ namespace FileManager
                     FilmBytes += (ulong)file.Length;
                     FilmFiles++;
                 }
+                else
+                {
+                    RestBytes = (ulong)file.Length;
+                    RestFiles++;
+                }
             }
         }
 
@@ -133,6 +142,8 @@ namespace FileManager
             a.DocumentBytes += b.DocumentBytes;
             a.ArchFiles += b.ArchFiles;
             a.ArchBytes += b.ArchBytes;
+            a.RestFiles += b.RestFiles;
+            a.RestBytes += b.RestBytes;
             return a;
         }
     }

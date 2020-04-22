@@ -22,7 +22,7 @@
                 </Viewbox>
             </Label.Content>
         </Label>
-        <Button Grid.Row="1" Margin="0,5,5,5" Background="BlueViolet" >
+        <Button x:Name="buttonCheck" Grid.Row="1" Margin="0,5,5,5" Background="BlueViolet" Click="Check_Click">
             <Button.Content>
                 <Viewbox>
                     <TextBlock Foreground="White">Check</TextBlock>

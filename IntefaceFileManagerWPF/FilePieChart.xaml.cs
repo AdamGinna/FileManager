@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FileManager;
 using LiveCharts;
 using LiveCharts.Wpf;
 
@@ -25,7 +26,7 @@ namespace IntefaceFileManagerWPF
             InitializeComponent();
 
             PointLabel = chartPoint =>
-                string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+               chartPoint.Y != 0 ? string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation) : "";
 
             DataContext = this;
         }
@@ -42,6 +43,40 @@ namespace IntefaceFileManagerWPF
 
             var selectedSeries = (PieSeries)chartpoint.SeriesView;
             selectedSeries.PushOut = 8;
+        }
+
+
+        public void UpdateChart(FileManager.FilesData data)
+        {
+
+            foreach (PieSeries s in PieChart.Series)
+            {
+                if (s.Title == "Image")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.ImageFiles };
+                }
+                else if (s.Title == "Audio")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.AudioFiles };
+                }
+                else if (s.Title == "Film")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.FilmFiles };
+                }
+                else if (s.Title == "Document")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.DocumentFiles };
+                }
+                else if (s.Title == "Archive")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.ArchFiles };
+                }
+                else if (s.Title == "Rest")
+                {
+                    s.Values = new ChartValues<long>() { (long)data.RestFiles };
+                }
+            }
+
         }
     }
 
