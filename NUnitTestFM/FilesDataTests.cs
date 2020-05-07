@@ -65,7 +65,7 @@ namespace NUnitTestFM
             data2.Dir = new DirectoryInfo(@"c:\Users\Adam\source\repos\FileManager\NUnitTestFM\FolderTestowy");
             data2.Start();
             FilesData data3 = data + data2;
-            Assert.AreEqual(data.Files+ data2.Files, data3.Files);
+            Assert.AreEqual(data.Files + data2.Files, data3.Files);
             Assert.AreEqual(data.AudioFiles+data2.AudioFiles, data3.AudioFiles);
             Assert.AreEqual(data.ImageFiles+data2.ImageFiles, data3.ImageFiles);
             Assert.AreEqual(data.DocumentFiles+data2.DocumentFiles, data3.DocumentFiles);

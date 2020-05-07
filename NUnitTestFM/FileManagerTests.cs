@@ -23,11 +23,6 @@ namespace FileManager.Tests
             Assert.AreEqual(17633248 * 2, data.ArchBytes);
         }
 
-        [Test()]
-        public void FileManagerTest1()
-        {
-            Assert.Fail();
-        }
 
         [Test()]
         public void GetFilesDataTest()

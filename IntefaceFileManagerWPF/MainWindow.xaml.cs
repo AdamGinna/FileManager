@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 
+
 namespace IntefaceFileManagerWPF
 {
     /// <summary>
@@ -63,7 +64,6 @@ namespace IntefaceFileManagerWPF
 
         public static void DrivesCharts()
         {
-
             // get data from service and show on chart
         }
 
@@ -79,6 +79,7 @@ namespace IntefaceFileManagerWPF
         public void FolderCharts()
         {
             FolderCharts(DataFolder);
+            
             // create data and show on chart
         }
 

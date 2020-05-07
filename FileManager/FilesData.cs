@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace FileManager
 {
-    public struct FilesData
+
+    public class FilesData
     {
         static private readonly string[] ImageFormat = { ".jpg", ".png", ".gif", ".tiff", ".bmp", ".ppm", ".pgm", ".pbm", ".pnm", ".heif", ".hdr", ".svg", ".cdr", ".eps", ".ai", ".swf", ".psd" };
         static private readonly string[] DocumentFormat = { ".pdf", ".doc", ".docm", ".docx", ".dot", ".dotx", ".txt", ".fb2", ".tex", ".mcw", ".odt", ".ott", ".pages", ".rtf", ".swt", ".sxw", ".wps", ".wpt", ".wri", ".abw", ".zabw", ".123", ".csv", ".et", ".ett", ".numbers", ".ods", ".ots", ".stc", ".sxc", ".sxc", ".wk1", ".wk2", ".wk3", ".wk4", ".wk4", ".xlw", ".xlr", ".xls", ".xla", ".xlt", ".xlk", ".xlsx", ".xlsm", ".xlsb", ".xltx", ".xlam", ".xltm", ".key", ".odp", ".otp", ".pps", ".ppt", ".pptx", ".sti", ".sxi" };
@@ -14,32 +17,38 @@ namespace FileManager
         static private readonly string[] FilmFormat = { ".3gp", ".asf", ".avi", ",dv", ".dvd", ".flv", ".m2ts", ".mkv", ".mov", ".mp4", ".mpg", ".ogg", ".smv", ".ts", ".svcd", ".wmv", ".vcd" };
 
 
+        [Key]
+        public int ID
+        {
+            get; set;
+        }
 
         public ulong Files {
             get;
-            private set; }
+            set; }
 
-        public ulong Bytes { get; private set; }
+        public ulong Bytes { get;  set; }
 
-        public ulong ImageFiles { get; private set; }
-        public ulong ImageBytes { get; private set; }
+        public ulong ImageFiles { get;  set; }
+        public ulong ImageBytes { get;  set; }
 
-        public ulong AudioFiles { get; private set; }
-        public ulong AudioBytes { get; private set; }
+        public ulong AudioFiles { get;  set; }
+        public ulong AudioBytes { get;  set; }
 
-        public ulong FilmFiles { get; private set; }
-        public ulong FilmBytes { get; private set; }
+        public ulong FilmFiles { get;  set; }
+        public ulong FilmBytes { get;  set; }
 
-        public ulong DocumentFiles { get; private set; }
-        public ulong DocumentBytes { get; private set; }
+        public ulong DocumentFiles { get;  set; }
+        public ulong DocumentBytes { get; set; }
 
-        public ulong ArchFiles { get; private set; }
-        public ulong ArchBytes { get; private set; }
+        public ulong ArchFiles { get; set; }
+        public ulong ArchBytes { get; set; }
 
 
-        public ulong RestFiles { get; private set; }
-        public ulong RestBytes { get; private set; }
+        public ulong RestFiles { get; set; }
+        public ulong RestBytes { get; set; }
 
+        [NotMapped]
         public DirectoryInfo Dir
         {
             get;
@@ -130,21 +139,23 @@ namespace FileManager
 
         static public FilesData operator +(FilesData a, FilesData b)
         {
-            a.Files += b.Files;
-            a.Bytes += b.Bytes;
-            a.ImageFiles += b.ImageFiles;
-            a.ImageBytes += b.ImageBytes;
-            a.AudioFiles += b.AudioFiles;
-            a.AudioBytes += b.AudioBytes;
-            a.FilmFiles += b.FilmFiles;
-            a.FilmBytes += b.FilmBytes;
-            a.DocumentFiles += b.DocumentFiles;
-            a.DocumentBytes += b.DocumentBytes;
-            a.ArchFiles += b.ArchFiles;
-            a.ArchBytes += b.ArchBytes;
-            a.RestFiles += b.RestFiles;
-            a.RestBytes += b.RestBytes;
-            return a;
+            FilesData result = new FilesData();
+            result.Zero();
+            result.Files = a.Files + b.Files;
+            result.Bytes = a.Bytes + b.Bytes;
+            result.ImageFiles = a.ImageFiles + b.ImageFiles;
+            result.ImageBytes = a.ImageBytes + b.ImageBytes;
+            result.AudioFiles = a.AudioFiles + b.AudioFiles;
+            result.AudioBytes = a.AudioBytes + b.AudioBytes;
+            result.FilmFiles = a.FilmFiles + b.FilmFiles;
+            result.FilmBytes = a.FilmBytes + b.FilmBytes;
+            result.DocumentFiles = a.DocumentFiles + b.DocumentFiles;
+            result.DocumentBytes = a.DocumentBytes + b.DocumentBytes;
+            result.ArchFiles = a.ArchFiles + b.ArchFiles;
+            result.ArchBytes = a.ArchBytes + b.ArchBytes;
+            result.RestFiles = a.RestFiles + b.RestFiles;
+            result.RestBytes = a.RestBytes + b.RestBytes;
+            return result;
         }
     }
 }
