@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Microsoft.EntityFrameworkCore.Internal;
+using SaveData;
 
 
 namespace IntefaceFileManagerWPF
@@ -25,6 +27,15 @@ namespace IntefaceFileManagerWPF
     {
         public MainWindow()
         {
+            var db = new DataContext();
+            DataAll = SaveData.DataContext.LoadDataAll();
+            DataSetDrives = SaveData.DataContext.LoadDataDrives();
+            var datasetList = new List<FileManager.FilesData>();
+            foreach (DataSet ds in DataSetDrives)
+            {
+                datasetList.Add(ds.Data);
+            }
+            DataDrives = datasetList;
             InitializeComponent();
             
         }
@@ -62,12 +73,20 @@ namespace IntefaceFileManagerWPF
             // get data from service and show on chart
         }
 
-        public static void DrivesCharts()
+        public void DrivesCharts(FileManager.FilesData data)
         {
-            // get data from service and show on chart
+            this.FilePieChart.UpdateChart(data);
+            this.BytesPieChart.UpdateChart(data);
+            this.BytesColumnChart.UpdateChart(data);
         }
 
-        public void FolderCharts(FileManager.FilesData data)
+        public void DrivesCharts()
+        {
+            if (DataDrives[0] != null)
+                DrivesCharts(DataDrives[0]);
+        }
+
+            public void FolderCharts(FileManager.FilesData data)
         {
             DataFolder = data;
             this.FilePieChart.UpdateChart(data);
@@ -78,13 +97,14 @@ namespace IntefaceFileManagerWPF
 
         public void FolderCharts()
         {
-            FolderCharts(DataFolder);
-            
+            if(DataFolder != null)
+                FolderCharts(DataFolder);
             // create data and show on chart
         }
 
         public static FileManager.FilesData DataFolder { get; set; }
         public static List<FileManager.FilesData> DataDrives = new List<FileManager.FilesData>();
+        public static List<SaveData.DataSet> DataSetDrives = new List<SaveData.DataSet>();
         public static FileManager.FilesData DataAll { get; set; }
     }
 

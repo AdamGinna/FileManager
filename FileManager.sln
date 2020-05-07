@@ -11,13 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntefaceFileManagerWPF", "I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileManagerService", "FileManagerService\FileManagerService.csproj", "{A9958731-A0CF-401D-9A70-128DE33F2B33}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AB8F284A-82E4-4F13-B9A9-4012974EAE33}"
-	ProjectSection(SolutionItems) = preProject
-		AllDataFile.dat = AllDataFile.dat
-		DataFile.dat = DataFile.dat
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveData", "SaveData\SaveData.csproj", "{18122503-51C0-4463-993C-D4165F35964F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaveData", "SaveData\SaveData.csproj", "{18122503-51C0-4463-993C-D4165F35964F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

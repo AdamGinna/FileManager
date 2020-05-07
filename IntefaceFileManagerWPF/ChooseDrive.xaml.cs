@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using IntefaceFileManagerWPF;
 using FileManager;
 using System.IO;
+using SaveData;
 
 namespace IntefaceFileManagerWPF
 {
@@ -25,18 +26,21 @@ namespace IntefaceFileManagerWPF
         {
             InitializeComponent();
 
-            FileManager.FileManager man = new FileManager.FileManager();
-            man.GetDiskData();
-            DriveInfo[] drives =  man.Drives;
-            foreach(DriveInfo d in drives)
-                this.listBox.Items.Add(d);
+
+            if(MainWindow.DataSetDrives != null)
+            {
+                foreach(DataSet ds in MainWindow.DataSetDrives)
+                {
+                    this.listBox.Items.Add(ds.Name);
+                }
+            }
 
         }
 
         public void OnClick(object sender, RoutedEventArgs e)
         {
-            //DriveInfo drive = this.listBox.SelectedItem;
-            this.listBox.Items.Add(this.listBox.SelectedItem);
+            MainWindow main = (MainWindow)Window.GetWindow(this);
+            main.DrivesCharts( MainWindow.DataDrives[this.listBox.SelectedIndex] );
         }
     }
 }

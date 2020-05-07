@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
 
 namespace SaveData
 {
@@ -39,6 +41,21 @@ namespace SaveData
             set.Name = "All";
             db.SavedDataFiles.Add(set);
             db.SaveChanges();
+        }
+
+
+        public static FilesData LoadDataAll()
+        {
+            DataContext db = new DataContext();
+            DataSet result = db.SavedDataFiles.Include(t => t.Data).First();
+            return result.Data;
+        }
+
+        public static List<DataSet> LoadDataDrives()
+        {
+            DataContext db = new DataContext();
+            DataSetDrives setList = db.SavedDataDrives.Include(t => t.Data).ThenInclude(t => t.Data).OrderByDescending(t => t.Date).First(); 
+            return setList.Data;
         }
 
     }

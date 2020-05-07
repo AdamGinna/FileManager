@@ -13,12 +13,7 @@ namespace SaveData.Tests
     [TestFixture()]
     class SaveDataTest
     {
-        /// <summary>
-        /// stworzenie metody do zapisywania 
-        /// testy tej metody 
-        /// dodanie metody do serwisu
-        /// dodawanie metody do wpf
-        /// </summary>
+
         [Test()]
         public void SaveTest()
         {
@@ -58,6 +53,20 @@ namespace SaveData.Tests
             Assert.IsNotNull(db.SavedDataFiles);
             Assert.IsNotNull(db.SavedDataDrives);
 
+        }
+
+        [Test()]
+        public void LoadTest2()
+        {
+            var db = new SaveData.DataContext();
+            Assert.IsNotNull(DataContext.LoadDataAll());
+        }
+
+        [Test()]
+        public void LoadTest3()
+        {
+            var db = new SaveData.DataContext();
+            Assert.IsNotNull(DataContext.LoadDataDrives());
         }
     }
 }

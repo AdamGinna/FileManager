@@ -92,6 +92,11 @@ namespace FileManagerService
             }
         }
 
+        static void Main(string[] args)
+        { 
+
+        }
+
     }
 
 }
